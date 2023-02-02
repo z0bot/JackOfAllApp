@@ -1,4 +1,4 @@
-package com.example.jackofallapp
+package com.example.jackofallapp.featureShowGrob.presentation.grobbies.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
