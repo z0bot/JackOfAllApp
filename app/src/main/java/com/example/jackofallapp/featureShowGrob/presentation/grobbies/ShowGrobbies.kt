@@ -21,37 +21,46 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.jackofallapp.featureShowGrob.presentation.grobbies.components.GrobbyCard
 import com.example.jackofallapp.featureShowGrob.domain.models.Grobby
+import com.example.jackofallapp.featureShowGrob.presentation.grobbies.components.AddGrobby
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShowGrobbies(viewModel : GrobbiesViewModel){
- Scaffold(
+fun ShowGrobbies(viewModel: GrobbiesViewModel) {
+    Scaffold(
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /*TODO*/ },
-                shape = RoundedCornerShape(16.dp))
+                onClick = { viewModel.showDialog = true },
+                shape = RoundedCornerShape(16.dp)
+            )
             {
                 Text(text = "+")
             }
         }
-    ){ paddingValues ->
-    Column(
-        modifier = Modifier
-            .padding(paddingValues)
-            .fillMaxWidth()
-            .fillMaxHeight(),
-    ){
-        LazyColumn(
+    ) { paddingValues ->
+        Column(
             modifier = Modifier
-                .fillMaxWidth(),
-            contentPadding = PaddingValues(16.dp)
+                .padding(paddingValues)
+                .fillMaxWidth()
+                .fillMaxHeight(),
         ) {
-            items(viewModel.grobbyList){ grobby ->
-               GrobbyCard(grobby.name, grobby.age)
-                GrobbyCard(grobby.name, grobby.age)
+            AddGrobby(
+                openDialog = viewModel.showDialog,
+                onAddGrobby = { grobby ->
+                    viewModel.onAddGrobby(grobby)
+                },
+                onConfirm = { viewModel.onDialogConfirm() },
+                onDismiss = { viewModel.onDialogDismiss() }
+            )
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                contentPadding = PaddingValues(16.dp)
+            ) {
+                items(viewModel.grobbyList) { grobby ->
+                    GrobbyCard(grobby.name, grobby.age)
+                }
             }
         }
     }
- }
 }
