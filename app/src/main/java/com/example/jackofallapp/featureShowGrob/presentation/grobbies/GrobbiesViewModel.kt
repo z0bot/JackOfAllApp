@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.jackofallapp.featureShowGrob.domain.models.Grobbies
 import com.example.jackofallapp.featureShowGrob.domain.models.Grobby
+import androidx.compose.runtime.getValue
 
 class GrobbiesViewModel : ViewModel() {
 
@@ -35,5 +36,9 @@ class GrobbiesViewModel : ViewModel() {
 
     fun onDialogDismiss(){
         showDialog = false;
+    }
+
+    fun onDeleteGrobby(grobby: Grobby){
+        _grobbyList.value = _grobbyList.value - grobby
     }
 }
